@@ -1,0 +1,7 @@
+{
+  "i18n-ally.localesPaths": [
+    "env/lib/python3.8/site-packages/notebook/i18n",
+    "env/lib/python3.8/site-packages/jedi/third_party/django-stubs/django-stubs/conf/locale",
+    "env/lib/python3.8/site-packages/jedi/third_party/django-stubs/django-stubs/contrib/messages"
+  ]
+}
