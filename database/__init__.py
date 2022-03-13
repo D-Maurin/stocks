@@ -35,3 +35,18 @@ class Item(db.Model):
             "flags": self.flags,
             "category": self.category
         }
+
+
+class Model(db.Model):
+    __tablename__ = 'models'
+
+    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    name = db.Column(db.String())
+    content = db.Column(JSON)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "content": self.content,
+        }

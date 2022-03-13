@@ -16,7 +16,15 @@ import { deleteItemCategory } from "../store/itemCategories/actions"
 import { PrimaryButton, SecondaryButton, TextButton } from "../style/Buttons"
 import PostAddIcon from "@mui/icons-material/PostAdd"
 import AddIcon from "@mui/icons-material/Add"
+
 const Header = styled.div`
+    background-color: var(--light);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+`
+
+const HeaderTitle = styled.div`
     font-size: 2em;
     font-weight: 500;
     color: var(--primary);
@@ -157,28 +165,30 @@ const ItemsTable = () => {
 
     return (
         <>
-            <HeaderWrapper>
-                <Header>Articles</Header>
-                <Buttons>
-                    <SecondaryButton
-                        onClick={() =>
-                            setAddCategory({ open: true, id: undefined })
-                        }
-                        startIcon={<PostAddIcon />}
-                    >
-                        Ajouter une catégorie
-                    </SecondaryButton>
-                    <PrimaryButton
-                        onClick={() =>
-                            setAddItem({ open: true, id: undefined })
-                        }
-                        startIcon={<AddIcon />}
-                    >
-                        Ajouter un item
-                    </PrimaryButton>
-                </Buttons>
-            </HeaderWrapper>
-            <Line />
+            <Header>
+                <HeaderWrapper>
+                    <HeaderTitle>Articles</HeaderTitle>
+                    <Buttons>
+                        <SecondaryButton
+                            onClick={() =>
+                                setAddCategory({ open: true, id: undefined })
+                            }
+                            startIcon={<PostAddIcon />}
+                        >
+                            Ajouter une catégorie
+                        </SecondaryButton>
+                        <PrimaryButton
+                            onClick={() =>
+                                setAddItem({ open: true, id: undefined })
+                            }
+                            startIcon={<AddIcon />}
+                        >
+                            Ajouter un item
+                        </PrimaryButton>
+                    </Buttons>
+                </HeaderWrapper>
+                <Line />
+            </Header>
 
             <Categories>
                 {sortedCategories.map((ic) => (
