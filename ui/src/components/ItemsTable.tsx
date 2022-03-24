@@ -16,31 +16,7 @@ import { deleteItemCategory } from "../store/itemCategories/actions"
 import { PrimaryButton, SecondaryButton, TextButton } from "../style/Buttons"
 import PostAddIcon from "@mui/icons-material/PostAdd"
 import AddIcon from "@mui/icons-material/Add"
-
-const Header = styled.div`
-    background-color: var(--light);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-`
-
-const HeaderTitle = styled.div`
-    font-size: 2em;
-    font-weight: 500;
-    color: var(--primary);
-`
-
-const HeaderWrapper = styled.div`
-    display: flex;
-    justify-content: space-between;
-    padding: 1.4rem 1rem 0.8rem 1rem;
-    align-items: center;
-`
-
-const Line = styled.div`
-    margin: 0 1rem;
-    border-bottom: solid var(--secondary) 1px;
-`
+import Header from "./reusable/Header"
 
 const Category = styled(Paper)<{ $color: string }>`
     overflow: hidden;
@@ -123,14 +99,8 @@ const EmptyCategoryText = styled.div`
     font-weight: 500;
 `
 
-const Buttons = styled.div`
-    display: flex;
-    gap: 8px;
-    align-items: center;
-`
-
 const ItemsTable = () => {
-    const items = useItems(true)
+    const items = useItems()
     const itemCategories = useItemCategories(true)
     const dispatch = useDispatch()
 
@@ -165,10 +135,10 @@ const ItemsTable = () => {
 
     return (
         <>
-            <Header>
-                <HeaderWrapper>
-                    <HeaderTitle>Articles</HeaderTitle>
-                    <Buttons>
+            <Header
+                title="Articles"
+                buttons={
+                    <>
                         <SecondaryButton
                             onClick={() =>
                                 setAddCategory({ open: true, id: undefined })
@@ -185,10 +155,9 @@ const ItemsTable = () => {
                         >
                             Ajouter un item
                         </PrimaryButton>
-                    </Buttons>
-                </HeaderWrapper>
-                <Line />
-            </Header>
+                    </>
+                }
+            />
 
             <Categories>
                 {sortedCategories.map((ic) => (

@@ -4,7 +4,7 @@ import CloseIcon from "@mui/icons-material/Close"
 import DashboardIcon from "@mui/icons-material/Dashboard"
 import MenuIcon from "@mui/icons-material/Menu"
 import { Backdrop, Paper, Tooltip } from "@mui/material"
-import React, { useState } from "react"
+import React, { ReactChild, ReactChildren, ReactNode, useState } from "react"
 import { Provider } from "react-redux"
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom"
 import styled, { css } from "styled-components"
@@ -13,6 +13,8 @@ import { store } from "./store"
 import GlobalStyle from "./style/GlobalStyle"
 import DesignServicesIcon from "@mui/icons-material/DesignServices"
 import MedicalServicesIcon from "@mui/icons-material/MedicalServices"
+import ModelsTable from "./components/ModelsTable"
+import { useLoadItems } from "./store/items/useItems"
 
 const Drawer = styled(Paper)`
     position: fixed;
@@ -110,6 +112,14 @@ const OpenMenu = styled.div`
     }
 `
 
+const DataLoaderWrapper = ({ children }: { children: ReactNode }) => {
+    const itemsReady = useLoadItems()
+
+    if (itemsReady) return <>{children}</>
+
+    return <>"loading"</>
+}
+
 function App() {
     const menus = [
         {
@@ -191,11 +201,14 @@ function App() {
             </Drawer>
 
             <Main>
-                <Routes>
-                    <Route path="/" element={null} />
+                <DataLoaderWrapper>
+                    <Routes>
+                        <Route path="/" element={null} />
 
-                    <Route path="/items" element={<ItemsTable />} />
-                </Routes>
+                        <Route path="/items" element={<ItemsTable />} />
+                        <Route path="/models" element={<ModelsTable />} />
+                    </Routes>
+                </DataLoaderWrapper>
             </Main>
         </Provider>
     )

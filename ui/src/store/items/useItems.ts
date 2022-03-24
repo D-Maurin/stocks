@@ -1,17 +1,26 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from ".."
 import { fetchAllItems } from "./actions"
 
-const useItems = (fetch = false) => {
-    const dispatch = useDispatch()
+const useItems = () => {
     const items = useSelector((state: RootState) => state.items)
+    return items
+}
+
+export const useLoadItems = () => {
+    const [ready, setReady] = useState(false)
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        if (fetch) dispatch(fetchAllItems())
-    }, [dispatch, fetch])
+        const load = async () => {
+            await dispatch(fetchAllItems())
+            setReady(true)
+        }
+        load()
+    }, [dispatch])
 
-    return items
+    return ready
 }
 
 export default useItems
