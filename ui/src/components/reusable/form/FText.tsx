@@ -1,7 +1,15 @@
 import { TextField } from "@mui/material"
 import { useController, useFormContext } from "react-hook-form"
 
-const FText = ({ name, label }: { name: string; label: string }) => {
+const FText = ({
+    name,
+    label,
+    small,
+}: {
+    name: string
+    label: string
+    small?: boolean
+}) => {
     const { control } = useFormContext()
 
     const {
@@ -14,6 +22,7 @@ const FText = ({ name, label }: { name: string; label: string }) => {
 
     return (
         <TextField
+            size={small ? "small" : undefined}
             error={Boolean(error)}
             helperText={error?.message}
             value={value}

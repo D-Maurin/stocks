@@ -2,21 +2,19 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import { Button, Chip, Collapse, IconButton, Paper } from "@mui/material"
 import { useMemo, useState } from "react"
 import { useDispatch } from "react-redux"
-import useItemCategories from "../store/itemCategories/useItemsCategories"
-import { deleteItem } from "../store/items/actions"
-import { flags, Item } from "../store/items/type"
-import useItems from "../store/items/useItems"
 import AddCategoryForm from "./AddCategoryForm"
 import AddItemForm from "./AddItemForm"
 import Table from "./reusable/Table"
 import EditIcon from "@mui/icons-material/Edit"
 import styled from "styled-components"
 import _ from "lodash"
-import { deleteItemCategory } from "../store/itemCategories/actions"
 import { PrimaryButton, SecondaryButton, TextButton } from "../style/Buttons"
 import PostAddIcon from "@mui/icons-material/PostAdd"
 import AddIcon from "@mui/icons-material/Add"
 import Header from "./reusable/Header"
+import { useItemCategories, useItems } from "../store/use"
+import { flags } from "../store/types"
+import { itemCategoriesActions, itemsActions } from "../store"
 
 const Category = styled(Paper)<{ $color: string }>`
     overflow: hidden;
@@ -101,7 +99,7 @@ const EmptyCategoryText = styled.div`
 
 const ItemsTable = () => {
     const items = useItems()
-    const itemCategories = useItemCategories(true)
+    const itemCategories = useItemCategories()
     const dispatch = useDispatch()
 
     const [addCategory, setAddCategory] = useState<{
@@ -191,7 +189,9 @@ const ItemsTable = () => {
                                         <TextButton
                                             onClick={() =>
                                                 dispatch(
-                                                    deleteItemCategory(ic.id),
+                                                    itemCategoriesActions.delete(
+                                                        ic.id,
+                                                    ),
                                                 )
                                             }
                                         >
@@ -240,7 +240,9 @@ const ItemsTable = () => {
                                                 <IconButton
                                                     onClick={() =>
                                                         dispatch(
-                                                            deleteItem(i.id),
+                                                            itemsActions.delete(
+                                                                i.id,
+                                                            ),
                                                         )
                                                     }
                                                 >

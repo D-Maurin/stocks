@@ -1,7 +1,7 @@
 import { Autocomplete, TextField } from "@mui/material"
 import { useMemo } from "react"
 import { useController, useFormContext } from "react-hook-form"
-import useItemCategories from "../../../store/itemCategories/useItemsCategories"
+import { useItemCategories } from "../../../store/use"
 
 const FCategory = ({ name, label }: { name: string; label: string }) => {
     const { control } = useFormContext()

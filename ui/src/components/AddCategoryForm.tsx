@@ -1,14 +1,11 @@
 import { yupResolver } from "@hookform/resolvers/yup"
-import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material"
+import { Dialog, DialogActions, DialogTitle } from "@mui/material"
 import { useEffect } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { useDispatch } from "react-redux"
-import {
-    createItemCategory,
-    updateItemCategory,
-} from "../store/itemCategories/actions"
-import { ItemCategory } from "../store/itemCategories/type"
-import useItemCategories from "../store/itemCategories/useItemsCategories"
+import { itemCategoriesActions } from "../store"
+import { ItemCategory } from "../store/types"
+import { useItemCategories } from "../store/use"
 import { PrimaryButton, TextButton } from "../style/Buttons"
 import Yup from "../utils/yup"
 import FColor, { isColorValid } from "./reusable/form/FColor"
@@ -43,13 +40,13 @@ const AddCategoryForm = ({
     const onSubmit = (values: Omit<ItemCategory, "id">) => {
         if (id) {
             dispatch(
-                updateItemCategory({
+                itemCategoriesActions.update({
                     uuid: id,
                     data: values,
                 }),
             )
         } else {
-            dispatch(createItemCategory(values))
+            dispatch(itemCategoriesActions.create(values))
         }
         onClose()
     }

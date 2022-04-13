@@ -7,6 +7,7 @@ from database import Item, db
 from api.items import itemsAPI
 from api.item_categories import itemCategoriesAPI
 from api.models import modelsAPI
+from api.equipments import equipmentsAPI
 
 database_url = os.getenv('DATABASE_URL')
 if database_url and database_url.startswith("postgres://"):
@@ -24,6 +25,7 @@ migrate = Migrate(app, db)
 app.register_blueprint(itemsAPI, url_prefix='/api')
 app.register_blueprint(itemCategoriesAPI, url_prefix='/api')
 app.register_blueprint(modelsAPI, url_prefix='/api')
+app.register_blueprint(equipmentsAPI, url_prefix="/api")
 
 
 @app.route('/<path:path>')

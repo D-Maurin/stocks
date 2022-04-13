@@ -3,9 +3,9 @@ import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material"
 import { useEffect, useMemo } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { useDispatch } from "react-redux"
-import { createItem, updateItem } from "../store/items/actions"
-import { flags, Item } from "../store/items/type"
-import useItems from "../store/items/useItems"
+import { itemsActions } from "../store"
+import { flags, Item } from "../store/types"
+import { useItems } from "../store/use"
 import { PrimaryButton, TextButton } from "../style/Buttons"
 import Yup from "../utils/yup"
 import FCategory from "./reusable/form/FCategory"
@@ -39,13 +39,13 @@ const AddItemForm = ({
     const onSubmit = (values: Omit<Item, "id">) => {
         if (id) {
             dispatch(
-                updateItem({
+                itemsActions.update({
                     uuid: id,
                     data: values,
                 }),
             )
         } else {
-            dispatch(createItem(values))
+            dispatch(itemsActions.create(values))
         }
         onClose()
     }

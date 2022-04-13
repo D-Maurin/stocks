@@ -50,3 +50,18 @@ class Model(db.Model):
             "name": self.name,
             "content": self.content,
         }
+
+
+class Equipment(db.Model):
+    __tablename__ = 'equipments'
+
+    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    name = db.Column(db.String())
+    content = db.Column(JSON)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "content": self.content,
+        }

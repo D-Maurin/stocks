@@ -1,7 +1,24 @@
 import { configureStore } from "@reduxjs/toolkit"
-import itemsReducer from "./items/slice"
-import itemCategoriesReducer from "./itemCategories/slice"
-import modelsReducer from "./models/slice"
+import connectApi from "./connectApi"
+import { Item, ItemCategory, Model } from "./types"
+
+const {
+    reducer: itemsReducer,
+    useLoad: useLoadItems,
+    actions: itemsActions,
+} = connectApi<Item>("items")
+
+const {
+    reducer: itemCategoriesReducer,
+    useLoad: useLoadItemCategories,
+    actions: itemCategoriesActions,
+} = connectApi<ItemCategory>("item_categories")
+
+const {
+    reducer: modelsReducer,
+    useLoad: useLoadModels,
+    actions: modelsActions,
+} = connectApi<Model>("models")
 
 export const store = configureStore({
     reducer: {
@@ -10,6 +27,15 @@ export const store = configureStore({
         models: modelsReducer,
     },
 })
+
+export {
+    useLoadItems,
+    useLoadItemCategories,
+    useLoadModels,
+    itemsActions,
+    itemCategoriesActions,
+    modelsActions,
+}
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>

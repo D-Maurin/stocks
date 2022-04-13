@@ -2,23 +2,23 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 import BallotIcon from "@mui/icons-material/Ballot"
 import CloseIcon from "@mui/icons-material/Close"
 import DashboardIcon from "@mui/icons-material/Dashboard"
+import DesignServicesIcon from "@mui/icons-material/DesignServices"
+import MedicalServicesIcon from "@mui/icons-material/MedicalServices"
 import MenuIcon from "@mui/icons-material/Menu"
 import { Backdrop, Paper, Tooltip } from "@mui/material"
-import React, { ReactChild, ReactChildren, ReactNode, useState } from "react"
+import React, { ReactNode, useState } from "react"
 import { Provider } from "react-redux"
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom"
 import styled, { css } from "styled-components"
 import ItemsTable from "./components/ItemsTable"
-import { store } from "./store"
-import GlobalStyle from "./style/GlobalStyle"
-import DesignServicesIcon from "@mui/icons-material/DesignServices"
-import MedicalServicesIcon from "@mui/icons-material/MedicalServices"
 import ModelsTable from "./components/ModelsTable"
-import { useLoadItems } from "./store/items/useItems"
+import { store, useLoadItems, useLoadModels } from "./store"
+import GlobalStyle from "./style/GlobalStyle"
 
 const Drawer = styled(Paper)`
     position: fixed;
     top: 1rem;
+
     left: 1rem;
     bottom: 1rem;
     transition: width 0.2s;
@@ -114,10 +114,12 @@ const OpenMenu = styled.div`
 
 const DataLoaderWrapper = ({ children }: { children: ReactNode }) => {
     const itemsReady = useLoadItems()
+    const categoriesReady = useLoadCategories()
+    const modelsReady = useLoadModels()
 
-    if (itemsReady) return <>{children}</>
+    if (itemsReady && categoriesReady && modelsReady) return <>{children}</>
 
-    return <>"loading"</>
+    return <>loading</>
 }
 
 function App() {
@@ -215,3 +217,6 @@ function App() {
 }
 
 export default App
+function useLoadCategories() {
+    throw new Error("Function not implemented.")
+}
