@@ -12,7 +12,12 @@ import { Route, Routes, useLocation, useNavigate } from "react-router-dom"
 import styled, { css } from "styled-components"
 import ItemsTable from "./components/ItemsTable"
 import ModelsTable from "./components/ModelsTable"
-import { store, useLoadItems, useLoadModels } from "./store"
+import {
+    store,
+    useLoadItemCategories,
+    useLoadItems,
+    useLoadModels,
+} from "./store"
 import GlobalStyle from "./style/GlobalStyle"
 
 const Drawer = styled(Paper)`
@@ -114,7 +119,7 @@ const OpenMenu = styled.div`
 
 const DataLoaderWrapper = ({ children }: { children: ReactNode }) => {
     const itemsReady = useLoadItems()
-    const categoriesReady = useLoadCategories()
+    const categoriesReady = useLoadItemCategories()
     const modelsReady = useLoadModels()
 
     if (itemsReady && categoriesReady && modelsReady) return <>{children}</>
@@ -217,6 +222,3 @@ function App() {
 }
 
 export default App
-function useLoadCategories() {
-    throw new Error("Function not implemented.")
-}
